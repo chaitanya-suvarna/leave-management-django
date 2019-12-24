@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load template_filter %}
 
 <!doctype html>
 
@@ -16,7 +17,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Leave Planner</a>
+    <span class="navbar-brand mb-0 h1">Leave Planner</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,10 +25,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <span class="navbar-brand mb-0 h1">Leave Planner</span>
+          <a class="navbar-brand" href="#">Leave Planner</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Add/Update Leaves</a>
+          <a class="nav-link" href="/leaves/">Add/Update Leaves</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Add/Update Resources</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,7 +65,7 @@
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              2018
+              {{year}}
             </button>
           </h2>
         </div>
@@ -87,32 +91,24 @@
                       <thead>
                         <tr>
                           <th scope="col">Day</th>
+                          {% for resourceleave in resource_leaves %}
                           <th scope="col" class="rotate-45">
-                            <div><span>Person 1</span></div>
+                            <div><span>{{resourceleave.full_name}}</span></div>
                           </th>
-                          <th scope="col" class="rotate-45">
-                            <div><span>Person 2</span></div>
-                          </th>
-                          <th scope="col" class="rotate-45">
-                            <div><span>Person 3</span></div>
-                          </th>
-                          <th scope="col" class="rotate-45">
-                            <div><span>Person 4</span></div>
-                          </th>
+                          {% endfor %}
                         </tr>
                       </thead>
                       <tbody>
                         {% for i in month.daycount %}
                         <tr>
                           <td>{{i}}</td>
-                          {% if i > 10 %}
-                          <td class="alert alert-primary" role="alert"></td>
-                          {% else %}
-                          <td class="alert alert-light" role="alert"></td>
-                          {% endif %}
-                          <td class="alert alert-light" role="alert"></td>
-                          <td></td>
-                          <td></td>
+                          {% for resource_leave in resource_leaves %}
+
+                          <td class="{% get_leave resource_leave month.number i %}" role="alert">
+
+                          </td>
+
+                          {% endfor %}
 
                         </tr>
                         {% endfor %}
@@ -127,40 +123,11 @@
             {% endfor %}
           </div>
         </div>
-        <div class="card">
-          <div class="card-header" id="headingTwo">
-            <h2 class="mb-0">
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                2019
-              </button>
-            </h2>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-              aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-              craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingThree">
-            <h2 class="mb-0">
-              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                2020
-              </button>
-            </h2>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-            <div class="card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-              aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-              craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-            </div>
-          </div>
-        </div>
+
       </div>
+    </div>
   </main>
+
 </body>
 
 </html>
