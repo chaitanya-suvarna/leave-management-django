@@ -11,9 +11,12 @@ The Leave_Portal is a mini-app withing the LeaveManagementProject.
 
 1. Pull the repositiory on your local machine.
 2. Run the makemigrations command to check the migrations to be made and then migrate the changes
-      python manage.py makemigrations
-      pythong manage.py migrate
+      
+        python manage.py makemigrations
+        pythong manage.py migrate
+        
 3. Run the server and the website will be up and running
-      python manage.py runserver
+
+        python manage.py runserver
       
 I have tried to have a look and implement all the basic features that Django provides, and I must say that I enjoyed working with this framework. If I ever need to spin up a stand-alone website in a short duration, Django will be my go-to framework.
