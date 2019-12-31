@@ -9,7 +9,7 @@ Resource addition/modification and LeaveType addition/modification can only be d
 
 The Leave_Portal is a mini-app withing the LeaveManagementProject.
 
-1. Pull the repositiory on your local machine.
+1. Clone the repositiory on your local machine.
 2. Run the makemigrations command to check the migrations to be made and then migrate the changes
       
         python manage.py makemigrations
