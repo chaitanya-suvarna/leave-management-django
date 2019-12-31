@@ -3,8 +3,9 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.template import RequestContext
 import calendar
-from LeavePortal.models import Resource,Leave
+from LeavePortal.models import Resource,Leave,LeaveType
 import datetime
+from .forms import LeaveForm
 # Create your views here.
 
 def index(request):
@@ -23,10 +24,16 @@ def index(request):
 
     return render(request,'index.html',{'months':months, 'names':names, 'leaves':leaves, 'resource_leaves':resource_leaves, 'year':datetime.datetime.now().year})
 
-
 def leaves(request):
-    return render(request,'leaves.html',{'months':months, 'names':names, 'leaves':leaves, 'resource_leaves':resource_leaves})
-
+    if request.method == 'POST':
+        form = LeaveForm(request.POST)
+        if form.is_valid():
+            print('VALID INPUT')
+            form.save()
+        else:
+            return render(request,'leaves.html',{'form':form})
+    form=LeaveForm()
+    return render(request,'leaves.html',{'form':form})
 
 class Month:
     def __init__(self, name, daycount, number):

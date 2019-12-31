@@ -3,6 +3,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index),
-    url('leaves/', views.leaves, name='leaves'),
+    url(r'^$', views.index, name='index'),
+    url(r'^leaves/', views.leaves, name='leaves'),
 ]

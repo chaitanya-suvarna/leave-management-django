@@ -11,9 +11,16 @@ class Resource(models.Model):
         ret = self.full_name
         return ret
 
+class LeaveType(models.Model):
+    leavetype_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        ret = self.leavetype_name
+        return ret
+
 class Leave(models.Model):
     leave_date = models.DateField()
-    leave_type = models.IntegerField(default=0)
+    leave_type = models.ForeignKey(LeaveType,models.CASCADE)
     resource = models.ForeignKey(Resource,models.CASCADE)
 
     def __str__(self):
