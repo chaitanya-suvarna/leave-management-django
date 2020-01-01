@@ -1,11 +1,12 @@
 from django import template
+import datetime
 from LeavePortal.models import Resource,Leave
 
 register = template.Library()
 
 @register.simple_tag
 def get_leave(resourceleave, month, day):
-    myleave_type = [leave.leave_type.id for leave in resourceleave.leaves if int(leave.leave_date.strftime("%-d")) == day and leave.leave_date.strftime("%-m") == month]
+    myleave_type = [leave.leave_type.id for leave in resourceleave.leaves if int(leave.leave_date.strftime("%-d")) == day and leave.leave_date.strftime("%-m") == month and leave.leave_date.strftime("%Y") == str(datetime.datetime.now().year)]
     if myleave_type == [2]:
         return "alert alert-danger"
     elif myleave_type == [3]:
